@@ -1,0 +1,78 @@
+﻿@model Manejo_Inventario.Models.MLineas
+
+@{
+    ViewBag.Title = "Insertar_Linea";
+}
+
+<style>
+    .bg-dark {
+        background-color: #343a40 !important;
+    }
+
+    .bg-17 {
+        background-color: #ffd966 !important;
+        font-weight: 700;
+    }
+
+    .bg-2 {
+        background-color: #9bc2e6 !important;
+        font-weight: 700;
+    }
+
+    .pname {
+        background-color: #bfbfbf !important;
+        font-weight: 700;
+    }
+
+    .mname {
+        background-color: #f2f2f2 !important;
+        font-weight: 400;
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+</style>
+
+<div class="jumbotron my-4 bg-dark text-white">
+    <h2 class="display-4 font-italic">Crear una nueva Linea</h2>
+    <br />
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.HiddenFor(model => model.ID_Linea, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.ID_Linea, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ID_Linea, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2"> Nombre de la Linea</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre_Linea, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre_Linea, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear Nueva Linea" class="btn btn-default" formaction="@Url.Action("Insertar_LineaDB")" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

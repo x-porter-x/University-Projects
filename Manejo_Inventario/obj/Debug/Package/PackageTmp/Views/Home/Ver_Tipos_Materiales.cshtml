@@ -1,0 +1,69 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Ver_Tipos_Materiales";
+}
+
+<style>
+    .bg-dark {
+        background-color: #343a40 !important;
+    }
+
+    .bg-17 {
+        background-color: #ffd966 !important;
+        font-weight: 700;
+    }
+
+    .bg-2 {
+        background-color: #9bc2e6 !important;
+        font-weight: 700;
+    }
+
+    .pname {
+        background-color: #bfbfbf !important;
+        font-weight: 700;
+    }
+
+    .mname {
+        background-color: #f2f2f2 !important;
+        font-weight: 400;
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+</style>
+
+<div class="jumbotron my-4 bg-dark text-white">
+    <h2 class="display-4 font-italic">Lista de Tipos de Material</h2>
+    <br />
+    <p>
+        @Html.ActionLink("Crear un Nuevo Tipo de Material", "Insert_Tipo_Material")
+    </p>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover ">
+        <thead>
+            <tr>
+                <th>Editar</th>
+                <th>Nombre del Tipo de Material</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Tipo in Model.Tmateriales)
+            {
+                <tr>
+                    <td>@Html.ActionLink("Editar", "Editar_Tipo_Material", new { Tipo.ID_Tipo_Material, Tipo.Nombre_del_Tipo_de_Material }) </td>
+                    <td>@Tipo.Nombre_del_Tipo_de_Material</td>
+                    <td>@Html.ActionLink("ELIMINAR", "DELETE_Tipo_Material", new { Tipo.ID_Tipo_Material }) </td>
+                </tr>
+            }
+
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("Volver a lista de Productos", "Index")
+</p>
+

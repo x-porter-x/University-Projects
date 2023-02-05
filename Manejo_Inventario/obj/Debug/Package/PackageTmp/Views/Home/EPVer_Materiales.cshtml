@@ -1,0 +1,64 @@
+﻿@model dynamic
+
+
+
+<style>
+    .bg-dark {
+        background-color: #343a40 !important;
+    }
+
+    .bg-17 {
+        background-color: #ffd966 !important;
+        font-weight: 700;
+    }
+
+    .bg-2 {
+        background-color: #9bc2e6 !important;
+        font-weight: 700;
+    }
+
+    .pname {
+        background-color: #bfbfbf !important;
+        font-weight: 700;
+    }
+
+    .mname {
+        background-color: #f2f2f2 !important;
+        font-weight: 600;
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+</style>
+<h4>Materiales Usados en el Producto Seleccionado </h4>
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered table-hover ">
+        <thead>
+            <tr>
+                <th>Nombre del Material</th>
+                <th>Cantidad de Metros / Unidades</th>
+                <th>Precio del Material</th>
+                <th>Detalle</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var materialUsado in Model.Materiales_del_Producto)
+            {
+                if (Model.ID_Producto == materialUsado.ID_Producto)
+                {
+                    <tr>
+                        <td class="mname">@materialUsado.Nombre_Material</td>                           <!--MATERIAL-->
+                        <td class="mname">@materialUsado.Candtidad_Metros_Unidades_Usado m/U</td>       <!--Cantidad-->
+                        <td class="mname">₡ @materialUsado.Precio_Metro_Unidad.ToString("#,##0.00")</td><!--Precio Elaboración-->
+                        <td class="mname">@materialUsado.Detalle</td>
+                        <td class="mname">@Html.ActionLink("ELIMINAR", "DELETE_Material_UsadoDB", new { materialUsado.ID_Mat_Usado, Model.ID_Producto }) </td>
+                    </tr>
+                }
+            }
+
+    </table>
+</div>
+

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Manejo_Inventario.Models.PorcentajeTienda_PorcentajePer>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover ">
+        <thead>
+            <tr>
+                <th>Nombre de la Linea</th>
+                <th>% Porcentaje de la Tienda</th>
+                <th>% Porcentaje de Personalización</th>
+                <th>₡ Precio por hr de Elaboración</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sys in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                @sys.Nombre_Linea
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-8">
+                               % @sys.Porcentaje_Tienda.ToString("0.##")
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-8">
+                               % @sys.Porcentaje_Personalización.ToString("0.##")
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                ₡ @sys.Precio_Por_Hora.ToString("0.##")
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "SYSUpdate", new { sys.ID_Sys_Settings, sys.Porcentaje_Tienda, sys.Porcentaje_Personalización, sys.Precio_Por_Hora, sys.Nombre_Linea })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts
+        {@Scripts.Render("~/bundles/jqueryval")}

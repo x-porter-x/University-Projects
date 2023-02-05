@@ -1,0 +1,128 @@
+﻿@model dynamic
+
+<h4>Productos que Usan Este Material</h4>
+<hr />
+<div class="table-responsive">
+    <table id="myTable" class="table table-bordered table-hover ">
+        <tbody>
+            @foreach (var producto in Model.listaProductos)
+            {
+            <thead>
+                <tr>
+                    <th class=".HeaderT">Editar</th>
+                    <th class=".HeaderT">Linea</th>
+                    <th class=".HeaderT">Nombre del Producto</th>
+                    <th class=".HeaderT">Material</th>
+                    <th class=".HeaderT">Cantidad</th>
+                    <th class=".HeaderT">Precio</th>
+                    <th class=".HeaderT">Margenes 1.7 / 2</th>
+                    <th class=".HeaderT">% Tienda</th>
+                    <th class=".HeaderT">IVA</th>
+                    <th class=".HeaderT">Venta</th>
+                    <th class=".HeaderT">Venta Personalizado</th>
+                    <th class=".HeaderT">Ganancia</th>
+                </tr>
+            </thead>
+            <tr>
+                <td class="pname">@Html.ActionLink("Editar", "Editar_Producto", new { producto.ID_Producto, producto.Linea, producto.Nombre_Producto, producto.Descripcion, producto.Duración, producto.ID_Linea }) </td>
+                <td class="pname">@producto.Linea</td>                                   <!--Nombre de la Linea-->
+                <td class="pname">@producto.Nombre_Producto</td>                         <!--Nombre del Producto-->
+                <td class="pname"></td>                                                  <!--MATERIAL-->
+                <td class="pname">TOTAL →</td>                                           <!--Cantidad-->
+                <td class="pname">₡ @producto.Precio_Elaboracion.ToString("0.##")</td><!--Precio Elaboración-->
+                <td class="bg-17">₡ @producto.Margen17.ToString("0.##")</td>         <!--Margen 1.7-->
+                @if (Model.listaPorcentajes_Runtimes != null)
+                {
+                    foreach (var dato in Model.listaPorcentajes_Runtimes)
+                    {
+                        if (dato.ID_Producto == producto.ID_Producto)
+                        {
+                            <td class="pname">₡ @dato.Porcentaje_Tienda17.ToString("0.##")</td> <!--Tienda%-->
+                            <td class="pname">₡ @dato.IVA17.ToString("0.##")</td> <!--IVA-->
+                            <td class="bg-17">₡ @dato.Venta17.ToString("0.##")</td> <!--Venta-->
+                            <td class="bg-17">₡ @dato.PERVenta17.ToString("0.##")</td> <!--PER Venta-->
+                            <td class="pname">₡ @dato.Ganancia17.ToString("0.##")</td> <!--Ganancia-->
+                        }
+                    }
+                }
+            </tr>
+            <tr>
+                <td class="pname"></td>
+                <td class="pname"></td>                                                   <!--Nombre de la Linea-->
+                <td class="pname"></td>                                                   <!--Nombre del Producto-->
+                <td class="pname"></td>                                                   <!--MATERIAL-->
+                <td class="pname">TOTAL →</td>                                            <!--Cantidad-->
+                <td class="pname">₡ @producto.Precio_Elaboracion.ToString("0.##")</td><!--Precio Elaboración-->
+                <td class="bg-2">₡ @producto.Margen2.ToString("0.##")</td>            <!--Margen 2-->
+
+                @if (Model.listaPorcentajes_Runtimes != null)
+                {
+                    foreach (var dato in Model.listaPorcentajes_Runtimes)
+                    {
+                        if (dato.ID_Producto == producto.ID_Producto)
+                        {
+                            <td class="pname">₡ @dato.Porcentaje_Tienda2.ToString("0.##")</td>
+ <!--Tienda%-->
+                            <td class="pname">₡ @dato.IVA2.ToString("0.##")</td>
+ <!--IVA-->
+                            <td class="bg-2">₡ @dato.Venta2.ToString("0.##")</td>
+ <!--Venta-->
+                            <td class="bg-2">₡ @dato.PERVenta2.ToString("0.##")</td>
+ <!--PER Venta-->
+                            <td class="pname">₡ @dato.Ganancia2.ToString("0.##")</td>
+ <!--Ganancia-->
+                        }
+                    }
+                }
+            </tr>
+            if (Model.listaPorcentajes_Runtimes != null)
+            {
+                int i = 0;
+                foreach (var dato in Model.listaPorcentajes_Runtimes)
+                {
+                    if (dato.ID_Producto == producto.ID_Producto && i != 1)
+                    {
+                        <tr>
+                            <td class="mname"></td>
+                            <td class="mname"></td>
+                            <td class="mname"></td>
+                            <td class="mname">ELABORACIÓN</td>                           <!--MATERIAL-->
+                            <td class="mname">@producto.Duración.ToString("0.##") Horas</td>              <!--Cantidad-->
+                            <td class="mname">₡ @((producto.Duración * dato.PrecioPorHora).ToString("0.##"))</td>                               <!--Precio Elaboración-->
+                            <td class="mname"></td>
+                            <td class="mname"></td>
+                            <td class="mname"></td>
+                            <td class="mname"></td>
+                            <td class="mname"></td>
+                            <td class="mname"></td>
+                        </tr>
+                    }
+                }
+            }
+
+
+            foreach (var materialUsado in Model.listaMaterialesUsados)
+            {
+                if (producto.ID_Producto == materialUsado.ID_Producto)
+                {
+                    <tr>
+                        <td class="mname"></td>
+                        <td class="mname"></td>
+                        <td class="mname"></td>
+                        <td class="mname">@materialUsado.Nombre_Material</td>                           <!--MATERIAL-->
+                        <td class="mname">@materialUsado.Candtidad_Metros_Unidades_Usado.ToString("0.##") m/U</td>       <!--Cantidad-->
+                        <td class="mname">₡ @((materialUsado.Candtidad_Metros_Unidades_Usado * materialUsado.Precio_Metro_Unidad).ToString("0.##")) </td><!--Precio Elaboración-->
+                        <td class="mname">@materialUsado.Detalle</td>
+                        <td class="mname"></td>
+                        <td class="mname"></td>
+                        <td class="mname"></td>
+                        <td class="mname"></td>
+                        <td class="mname"></td>
+                    </tr>
+                }
+            }
+        }
+            </tbody>
+        </table>
+    </div>
+

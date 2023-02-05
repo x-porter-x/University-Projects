@@ -1,0 +1,123 @@
+﻿@model Manejo_Inventario.Models.Producto
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <style>
+        .bg-dark {
+            background-color: #343a40 !important;
+        }
+
+        .bg-17 {
+            background-color: #ffd966 !important;
+            font-weight: 700;
+        }
+
+        .bg-2 {
+            background-color: #9bc2e6 !important;
+            font-weight: 700;
+        }
+
+        .pname {
+            background-color: #bfbfbf !important;
+            font-weight: 700;
+        }
+
+        .mname {
+            background-color: #f2f2f2 !important;
+            font-weight: 400;
+        }
+
+        .text-white {
+            color: #fff !important;
+        }
+    </style>
+
+    <div class="form-horizontal">
+        <div class="jumbotron my-4 bg-dark text-white">
+            <h2 class="display-4 font-italic">Editar Producto Seleccionado</h2>
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.ID_Producto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.ID_Producto, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ID_Producto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <table class="table table-bordered table-hover ">
+            <thead>
+                <tr>
+                    <th>Linea</th>
+                    <th>Nombre del Producto</th>
+                    <th>Descripción del Producto</th>
+                    <th>Duración para Elaborar (Horas)</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td class="pname">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.ID_Linea, ViewBag.LineasList as SelectList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </td>
+                    <td class="pname">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Nombre_Producto, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Nombre_Producto, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                    <td class="pname">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                    <td class="pname">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Duración, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Duración, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                    <td class="pname">
+                        @Html.ActionLink("ELIMINAR", "DELETE_ProductoDB", new { Model.ID_Producto })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Guardar Cambios Del Producto" class="btn btn-default" formaction="@Url.Action("Editar_ProductoDB")" />
+    </div>
+
+     Html.RenderAction("Insertar_Material_Usado", Model.ID_Producto);
+
+
+
+    <div>
+        @{ Html.RenderAction("EPVer_Materiales", Model.ID_Producto);}
+    </div>
+
+    <p>
+        @Html.ActionLink("Volver a lista de Productos", "Index")
+    </p>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,132 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Productos";
+}
+
+<style>
+    .bg-dark {
+        background-color: #343a40 !important;
+    }
+    .bg-17 {
+        background-color: #ffd966 !important;
+        font-weight: 700;
+    }
+    .bg-2 {
+        background-color: #9bc2e6 !important;
+        font-weight: 700;
+    }
+    .pname {
+        background-color: #bfbfbf !important;
+        font-weight: 700;
+    }
+    .mname {
+        background-color: #f2f2f2 !important;
+        font-weight: 400;
+    }
+    .text-white {
+        color: #fff !important;
+    }
+</style>
+
+<body>
+    <div class="jumbotron my-4 bg-dark text-white">
+        <h2 class="display-4 font-italic">Productos en Base de Datos</h2>
+        <p class="lead my-3">Desglose de Precios</p>
+    </div>
+
+    <!-- Page Heading -->
+
+    <div class="form-horizontal">
+        <div class="list-group">
+            <div class="card-body d-flex flex-column align-items-start">
+                <div class="list-group-item list-group-item-action">
+                    <h3 class="mb-0">
+                        <p class="text-dark">Ajustes de la Lista</p>
+                    </h3>
+                    <div>
+                        <p class="card-text mb-auto">Ajustar Porcentaje que recibe la Tienda:</p>
+                        <input type="number" id="Porcentaje_Tienda" clientidmode="static" runat="server"/> %
+                    </div>
+                    
+                    <div class="mb-1 text-muted">NIGGER</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="h3 mb-2 text-gray-800">Lista de Productos</h2>
+    <p class="mb-4">
+    </p>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover ">
+            <thead>
+                <tr>
+                    <th>Linea</th>
+                    <th>Nombre del Producto</th>
+                    <th>Material</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Margenes 1.7 / 2</th>
+                    <th>% Tienda</th>
+                    <th>IVA</th>
+                    <th>Venta</th>
+                    <th>Ganancia</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var producto in Model.listaProductos)
+                {
+                    <tr>
+                        <td class="pname">@producto.Linea</td>               <!--Nombre de la Linea-->
+                        <td class="pname">@producto.Nombre_Producto</td>     <!--Nombre del Producto-->
+                        <td class="pname"></td>                              <!--MATERIAL-->
+                        <td class="pname">TOTAL →</td>                       <!--Cantidad-->
+                        <td class="pname">₡ @producto.Precio_Elaboracion.ToString("#,##0.00")</td><!--Precio Elaboración-->
+                        <td class="bg-17">₡ @producto.Margen17.ToString("#,##0.00")</td>          <!--Margen 1.7-->
+                        <td class="pname">₡ %Tienda</td>                     <!--Tineda%-->
+                        <td class="pname">₡ Iva</td>                         <!-- IVA-->
+                        <td class="bg-17">₡ Venta</td>                       <!--Venta-->
+                        <td class="pname">₡ Ganancia</td>                    <!--Ganancia-->
+
+                    </tr>
+                    <tr>
+                        <td class="pname"></td>                              <!--Nombre de la Linea-->
+                        <td class="pname"></td>                              <!--Nombre del Producto-->
+                        <td class="pname"></td>                              <!--MATERIAL-->
+                        <td class="pname">TOTAL →</td>                       <!--Cantidad-->
+                        <td class="pname">₡ @producto.Precio_Elaboracion.ToString("#,##0.00")</td><!--Precio Elaboración-->
+                        <td class="bg-2">₡ @producto.Margen2.ToString("#,##0.00")</td>            <!--Margen 2-->
+                        <td class="pname">₡ %Tienda</td>                     <!--Tienda%-->
+                        <td class="pname">₡ Iva</td>                         <!--IVA-->
+                        <td class="bg-2">₡ Venta</td>                        <!--Venta-->
+                        <td class="pname">₡ Ganancia</td>                    <!--Ganancia-->
+                    </tr>
+
+                    foreach (var materialUsado in Model.listaMateriales)
+                    {
+                        if (producto.ID_Producto == materialUsado.ID_Producto)
+                        {
+                            <tr>
+                                <td class="mname"></td> <!--Nombre de la Linea-->
+                                <td class="mname"></td><!--Nombre del Producto-->
+                                <td class="mname">@materialUsado.Nombre_Material</td><!--MATERIAL-->
+                                <td class="mname">@materialUsado.Candtidad_Metros_Unidades_Usado m/U</td><!--Cantidad-->
+                                <td class="mname">₡ @materialUsado.Precio_Metro_Unidad.ToString("#,##0.00")</td><!--Precio Elaboración-->
+                                <td class="mname"></td>
+                                <td class="mname"></td>
+                                <td class="mname"></td>
+                                <td class="mname"></td>
+                                <td class="mname"></td>
+                            </tr>
+                        }
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+</body>

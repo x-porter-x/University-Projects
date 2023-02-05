@@ -1,0 +1,126 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Lista de Productos Simplificada";
+}
+
+<style>
+    .bg-dark {
+        background-color: #343a40 !important;
+    }
+    .bg-17 {
+        background-color: #ffd966 !important;
+        font-weight: 700;
+    }
+    .bg-2 {
+        background-color: #9bc2e6 !important;
+        font-weight: 700;
+    }
+    .pname {
+        background-color: #bfbfbf !important;
+        font-weight: 700;
+    }
+    .mname {
+        background-color: #f2f2f2 !important;
+        font-weight: 600;
+    }
+    .text-white {
+        color: #fff !important;
+    }
+</style>
+
+<body>
+    <div class="jumbotron my-4 bg-dark text-white">
+        <h2 class="display-4 font-italic">Lista de Productos Simplificada</h2>
+    </div>
+
+    <!-- Page Heading -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                <h2 class="h3 mb-2 text-gray-800">Productos Con Margen 1.7%</h2>
+                <p class="mb-4">
+                </p>
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-hover ">
+                        <thead>
+                            <tr>
+                                <th>Linea</th>
+                                <th>Nombre del Producto</th>
+                                <th>Precio Final</th>
+                                <th>Precio Final Personalizado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var producto in Model.listaProductos)
+                            {
+                                <tr>
+                                    <td class="pname">@producto.Linea</td>
+                                    <td class="pname">@producto.Nombre_Producto</td>
+                                    @if (Model.listaPorcentajes_Runtimes != null)
+                                    {
+                                        foreach (var dato in Model.listaPorcentajes_Runtimes)
+                                        {
+                                            if (dato.ID_Producto == producto.ID_Producto)
+                                            {
+                                                <td class="bg-17">₡ @dato.Venta17.ToString("#,##0.00")</td>
+                                                <td class="bg-17">₡ @dato.PERVenta17.ToString("#,##0.00")</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-xs-6">
+                <h2 class="h3 mb-2 text-gray-800">Productos Con Margen 2%</h2>
+                <p class="mb-4">
+                </p>
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-hover ">
+                        <thead>
+                            <tr>
+                                <th>Linea</th>
+                                <th>Nombre del Producto</th>
+                                <th>Precio Final</th>
+                                <th>Precio Final Personalizado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var producto in Model.listaProductos)
+                            {
+                                <tr>
+                                    <td class="pname">@producto.Linea</td>
+                                    <td class="pname">@producto.Nombre_Producto</td>
+                                    @if (Model.listaPorcentajes_Runtimes != null)
+                                    {
+                                        foreach (var dato in Model.listaPorcentajes_Runtimes)
+                                        {
+                                            if (dato.ID_Producto == producto.ID_Producto)
+                                            {
+                                                <td class="bg-2">₡ @dato.Venta2.ToString("#,##0.00")</td>
+                                                <td class="bg-2">₡ @dato.PERVenta2.ToString("#,##0.00")</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        @Html.ActionLink("Volver a Lista de Productos", "Index")
+    </div>
+</body>

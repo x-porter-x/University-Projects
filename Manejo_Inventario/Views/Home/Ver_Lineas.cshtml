@@ -1,0 +1,67 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Ver_Lineas";
+}
+<style>
+    .bg-dark {
+        background-color: #343a40 !important;
+    }
+
+    .bg-17 {
+        background-color: #ffd966 !important;
+        font-weight: 700;
+    }
+
+    .bg-2 {
+        background-color: #9bc2e6 !important;
+        font-weight: 700;
+    }
+
+    .pname {
+        background-color: #bfbfbf !important;
+        font-weight: 700;
+    }
+
+    .mname {
+        background-color: #f2f2f2 !important;
+        font-weight: 400;
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+</style>
+
+<div class="jumbotron my-4 bg-dark text-white">
+    <h2 class="display-4 font-italic">Lineas de Productos en Base de Datos</h2>
+    <br />
+    <p>
+        @Html.ActionLink("Crear una Nueva Linea de Productos", "Insertar_Linea")
+    </p>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover ">
+        <thead>
+            <tr>
+                <th>Editar</th>
+                <th>Nombre de la Linea</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var linea in Model.Lineas)
+            {
+                <tr>
+                    <td>@Html.ActionLink("Editar", "Editar_Linea", new { linea.ID_Linea, linea.Nombre_Linea }) </td>
+                    <td>@linea.Nombre_Linea</td>
+                    <td>@Html.ActionLink("ELIMINAR", "DELETE_Linea", new { linea.ID_Linea }) </td>
+                </tr>
+            }
+
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("Volver a lista de Productos", "Index")
+</p>

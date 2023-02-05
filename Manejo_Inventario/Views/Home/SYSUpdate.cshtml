@@ -1,0 +1,105 @@
+﻿@model Manejo_Inventario.Models.PorcentajeTienda_PorcentajePer
+
+@{
+    ViewBag.Title = "SYSUpdate";
+}
+
+<style>
+    .bg-dark {
+        background-color: #343a40 !important;
+    }
+
+    .bg-17 {
+        background-color: #ffd966 !important;
+        font-weight: 700;
+    }
+
+    .bg-2 {
+        background-color: #9bc2e6 !important;
+        font-weight: 700;
+    }
+
+    .pname {
+        background-color: #bfbfbf !important;
+        font-weight: 700;
+    }
+
+    .mname {
+        background-color: #f2f2f2 !important;
+        font-weight: 400;
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+</style>
+
+<div class="jumbotron my-4 bg-dark text-white">
+    <h2 class="display-4 font-italic">Editar Porcentajes para @Html.DisplayFor(model => model.Nombre_Linea) </h2>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.HiddenFor(model => model.ID_Linea, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.ID_Linea, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ID_Linea, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.ID_Sys_Settings, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.ID_Sys_Settings, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ID_Sys_Settings, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.Nombre_Linea, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.Nombre_Linea, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre_Linea, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Porcentaje de la Tienda %</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Porcentaje_Tienda, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Porcentaje_Tienda, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Porcentaje por Personalización %</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Porcentaje_Personalización, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Porcentaje_Personalización, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Precio por Hora</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Precio_Por_Hora, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Precio_Por_Hora, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar Cambios" class="btn btn-default" formaction="@Url.Action("IndexRefresh")"/>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver a lista de Productos", "Index")
+</div>

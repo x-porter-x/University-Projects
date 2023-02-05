@@ -1,0 +1,64 @@
+﻿@model Manejo_Inventario.Models.Material_Usado_Insert
+
+<h4>Agregar un Material Para Elaborar este Producto  </h4>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <table class="table table-bordered table-hover ">
+            <thead>
+                <tr>
+                    <th>Material para Agregar</th>
+                    <th>Cantidad Usada Metros / Unidades</th>
+                    <th>Nota</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td class="pname">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.ID_Material, ViewBag.MatList as SelectList, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ID_Material, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="pname">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Cantidad_Usada, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Cantidad_Usada, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="pname">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Detalle, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Detalle, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <div class="form-group">
+                    @Html.HiddenFor(model => model.ID_Producto, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.HiddenFor(model => model.ID_Producto, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ID_Producto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </tbody>
+        </table>
+        <div class="form-group">
+            <input type="submit" value="Agregar Material Para el Producto Creado" class="btn btn-default" formaction="@Url.Action("Insertar_Material_UsadoDB")" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

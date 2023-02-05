@@ -1,0 +1,78 @@
+﻿@model Manejo_Inventario.Models.Tipo_De_Material
+
+@{
+    ViewBag.Title = "Insert_Tipo_Material";
+}
+
+<style>
+    .bg-dark {
+        background-color: #343a40 !important;
+    }
+
+    .bg-17 {
+        background-color: #ffd966 !important;
+        font-weight: 700;
+    }
+
+    .bg-2 {
+        background-color: #9bc2e6 !important;
+        font-weight: 700;
+    }
+
+    .pname {
+        background-color: #bfbfbf !important;
+        font-weight: 700;
+    }
+
+    .mname {
+        background-color: #f2f2f2 !important;
+        font-weight: 400;
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+</style>
+
+<div class="jumbotron my-4 bg-dark text-white">
+    <h2 class="display-4 font-italic">Agregar un Nuevo Tipo de Material</h2>
+    <br />
+    <p>
+        @Html.ActionLink("Crear un Nuevo Tipo de Material", "Insertar_Linea")
+    </p>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.HiddenFor(model => model.ID_Tipo_Material, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.ID_Tipo_Material, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ID_Tipo_Material, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2"> Nombre del Tipo de Material</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre_del_Tipo_de_Material, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre_del_Tipo_de_Material, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agregar Nuevo Tipo de Material" class="btn btn-default" formaction="@Url.Action("Insert_Tipo_MaterialDB")"/>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver a la lista de Tipos de Materiales", "Ver_Tipos_Materiales")
+</div>

@@ -1,0 +1,147 @@
+﻿@model dynamic
+@using Manejo_Inventario.Models;
+@{
+    ViewBag.Title = "Materiales";
+}
+<script>
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++)
+        {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td)
+            {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1)
+                {
+                    tr[i].style.display = "";
+                }
+                else
+                {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<style>
+    .bg-dark {
+        background-color: #343a40 !important;
+    }
+
+    .bg-17 {
+        background-color: #ffd966 !important;
+        font-weight: 700;
+    }
+
+    .bg-2 {
+        background-color: #9bc2e6 !important;
+        font-weight: 700;
+    }
+
+    .pname {
+        background-color: #bfbfbf !important;
+        font-weight: 700;
+    }
+
+    .mname {
+        background-color: #f2f2f2 !important;
+        font-weight: 400;
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+
+    #myInput {
+        width: 100%; /* Full-width */
+        font-size: 16px; /* Increase font-size */
+        padding: 12px 20px 12px 5px; /* Add some padding */
+        border: 1px solid #ddd; /* Add a grey border */
+        margin-bottom: 12px; /* Add some space below the input */
+    }
+
+    #myTable {
+        border-collapse: collapse; /* Collapse borders */
+        width: 100%; /* Full-width */
+        border: 1px solid #ddd; /* Add a grey border */
+        font-size: 18px; /* Increase font-size */
+    }
+
+        #myTable th, #myTable td {
+            text-align: left; /* Left-align text */
+            padding: 12px; /* Add padding */
+        }
+
+        #myTable tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+            #myTable tr.header, #myTable tr:hover {
+                /* Add a grey background color to the table header and on hover */
+                background-color: #f1f1f1;
+            }
+</style>
+
+<div>
+    <div class="jumbotron my-4 bg-dark text-white">
+        <h2 class="display-4 font-italic">Materiales Registrados en Base de Datos</h2>
+        <br />
+        <p>
+            @Html.ActionLink("Agregar un Nuevo Material", "Insertar_Material")
+        </p>
+    </div>
+
+    <!-- Page Heading -->
+
+    <h2 class="h3 mb-2 text-gray-800">Lista de Materiales</h2>
+    <p class="mb-4">
+    </p>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar Material por Nombre...">
+    <div class="table-responsive">
+        <table id="myTable" class="table table-bordered table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>Editar</th>
+                    <th>Nombre del Material</th>
+                    <th>Tipo de Material</th>
+                    <th>Proveedor</th>
+                    <th>Especificaciones</th>
+                    <th>Precio por Metro / Unidad</th>
+                    <th>Última Fecha de Edición</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @foreach (var material in Model.listaMateriales)
+                    {
+                    <tr>
+                        <td>@Html.ActionLink("Editar", "Editar_Material", new { material.ID_Material, material.Nombre_Material, material.Precio_Por_Metro, material.Especificaciones, material.Fecha_Actualizada, material.Proveedor, material.ID_Tipo_De_Material }) </td>
+                        <td>@material.Nombre_Material </td>
+                        <td>@material.Nombre_del_Tipo_de_Material </td>
+                        <td>@material.Proveedor </td>
+                        <td>@material.Especificaciones </td>
+                        <td>₡ @material.Precio_Por_Metro.ToString("#,##0.00")</td>
+                        <td>@material.Fecha_Actualizada </td>
+                        <td>@Html.ActionLink("ELIMINAR", "ELIMINAR_Material", new { material.ID_Material, material.Nombre_Material, material.Precio_Por_Metro, material.Especificaciones, material.Fecha_Actualizada, material.ID_Tipo_De_Material }) </td>
+
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p>
+        @Html.ActionLink("Volver a lista de Productos", "Index")
+    </p>
+
+
